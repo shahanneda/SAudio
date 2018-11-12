@@ -37,15 +37,25 @@ class AudioViewController: UIViewController {
             self.view.addSubview(playerViewController.view)
             
 
-            playerViewController.view.frame = self.view.frame
-            TestView.addConstraint(
-                NSLayoutConstraint(item: TestView,
-                                   attribute: .centerX,
-                                   relatedBy: .equal,
-                                   toItem: TestView,
-                                   attribute: .centerX,
-                                   multiplier: 1, constant: 0)
-            )
+//            playerViewController.view.frame = self.view.frame
+//            TestView.addConstraint(
+//                NSLayoutConstraint(item: TestView,
+//                                   attribute: .centerX,
+//                                   relatedBy: .equal,
+//                                   toItem: TestView,
+//                                   attribute: .centerX,
+//                                   multiplier: 1, constant: 0)
+//            )
+//        view.bringSubviewToFront(TestView)
+//
+//        TestView.center = CGPoint(x: view.frame.width / 2, y: view.frame.height / 2)
+//        TestView.setNeedsLayout()
+//        TestView.setNeedsDisplay()
+//        TestView.sizeToFit();
+//        TestView.setNeedsLayout()
+//        TestView.setNeedsDisplay()
+        self.TestView.center = CGPoint(x: self.playerViewController.view.bounds.midX,
+                                        y: self.playerViewController.view.bounds.midY);
 //                playerViewController.player!.play()
             
 
