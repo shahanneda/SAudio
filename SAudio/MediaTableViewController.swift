@@ -10,25 +10,30 @@ import UIKit
 
 class MediaTableViewController: UITableViewController {
     
-    var fileURLs : [URL]!
+    var fileURLs : [URL]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let fileManager = FileManager.default
         
         let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
         print(documentsURL)
-        do {
-             fileURLs = try fileManager.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
-            
-            
-            for url in fileURLs{
-                //               / let fileName = url.lastPathComponent
-                print(url);
+        if(fileURLs == nil){
+            do {
+                
+                fileURLs = try fileManager.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
+                
+                
+                for url in fileURLs!{
+                    //               / let fileName = url.lastPathComponent
+                    print(url);
+                }
+                
+            } catch {
+                print("Error while enumerating files \(documentsURL.path): \(error.localizedDescription)")
             }
-            
-        } catch {
-            print("Error while enumerating files \(documentsURL.path): \(error.localizedDescription)")
         }
+
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -45,7 +50,7 @@ class MediaTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return fileURLs.count
+        return fileURLs!.count
     }
 
     
@@ -55,12 +60,23 @@ class MediaTableViewController: UITableViewController {
             print("DIRECTORY EXIXTS AT PATH :" + fileURLs![indexPath.row].absoluteString)
             let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let newViewController = storyBoard.instantiateViewController(withIdentifier: "AudioViewController") as! AudioViewController
-            newViewController.MediaURL = fileURLs[indexPath.row]
+            newViewController.MediaURL = fileURLs![indexPath.row]
             newViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext // To show how / remove black backgorudn shit
             self.present(newViewController, animated: true, completion : nil)
         }else{
-            let storyboard = UIStoryboard(name: "MyStoryboardName", bundle: nil)
-            let vc = storyboard.instantiateViewControllerWithIdentifier("someViewController")
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "MediaTableViewController")
+            
+            //self.present(vc, animated: true, completion : nil)
+            do{
+                let newfileURLs = try FileManager.default.contentsOfDirectory(at:fileURLs![indexPath.row], includingPropertiesForKeys: nil)
+                let mediaVCTable = vc as? MediaTableViewController
+                mediaVCTable?.fileURLs = newfileURLs
+                self.navigationController?.pushViewController(vc, animated: true)
+            }catch{
+                print(error)
+            }
+            
         }
 
         
@@ -72,9 +88,12 @@ class MediaTableViewController: UITableViewController {
             fatalError("The dequeued cell is not an instance of MealTableViewCell.")
             
         }
-        let url = fileURLs[indexPath.row]
+        let url = fileURLs![indexPath.row]
         var name = url.lastPathComponent
-        name.removeLast(4)
+        if(!directoryExistsAtPath(url.absoluteString)){
+            name.removeLast(4)
+        }
+        
         cell.NameLabel.text = name
 
         return cell
@@ -86,12 +105,12 @@ class MediaTableViewController: UITableViewController {
             //TODO: edit the row at indexPath here
             //1. Create the alert controller.
             let alert = UIAlertController(title: "Some Title", message: "Enter a text", preferredStyle: .alert)
-            let originPath = self.fileURLs[indexPath.item] // used for renameing the file later
-            let name = self.fileURLs[indexPath.item].absoluteString
+            let originPath = self.fileURLs![indexPath.item] // used for renameing the file later
+            let name = self.fileURLs![indexPath.item].absoluteString
             let lastpartname = NSString(string: name).lastPathComponent
             //2. Add the text field. You can configure it however you need.
             alert.addTextField { (textField) in
-                var displayTextfieldText = self.fileURLs[indexPath.item].lastPathComponent
+                var displayTextfieldText = self.fileURLs![indexPath.item].lastPathComponent
                 displayTextfieldText.removeLast(4)
                 textField.text = displayTextfieldText
             }
@@ -107,7 +126,7 @@ class MediaTableViewController: UITableViewController {
                 newpath.append(textField.text! + ".mp3")
                 newpath = newpath.replacingOccurrences(of: " ", with: "%20")
                 print(newpath)
-                self.fileURLs[indexPath.item] = URL(string: newpath)!;
+                self.fileURLs![indexPath.item] = URL(string: newpath)!;
                 tableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.fade)
                 
                 do {
