@@ -53,12 +53,14 @@ class MediaTableViewController: UITableViewController {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let newViewController = storyBoard.instantiateViewController(withIdentifier: "AudioViewController") as! AudioViewController
         newViewController.MediaURL = fileURLs[indexPath.row]
+        newViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext // To show how / remove black backgorudn shit
         self.present(newViewController, animated: true, completion : nil)
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "MediaTableViewCell"
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MediaTableViewCell else {
             fatalError("The dequeued cell is not an instance of MealTableViewCell.")
+            
         }
         let url = fileURLs[indexPath.row]
         var name = url.lastPathComponent
@@ -68,7 +70,57 @@ class MediaTableViewController: UITableViewController {
         return cell
     }
  
-
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (rowAction, indexPath) in
+            //TODO: edit the row at indexPath here
+            //1. Create the alert controller.
+            let alert = UIAlertController(title: "Some Title", message: "Enter a text", preferredStyle: .alert)
+            
+            //2. Add the text field. You can configure it however you need.
+            alert.addTextField { (textField) in
+                textField.text = "Some default text"
+            }
+            
+            // 3. Grab the value from the text field, and print it when the user clicks OK.
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+                let textField = alert!.textFields![0] // Force unwrapping because we know it exists.
+//                print("Text field: \(String(describing: textField.text))")
+                let originPath = self.fileURLs[indexPath.item] // used for renameing the file later
+                let name = self.fileURLs[indexPath.item].absoluteString
+                let lastpartname = NSString(string: name).lastPathComponent
+                
+                var newpath = name.replacingOccurrences(of: lastpartname, with: "")
+                newpath.append(textField.text! + ".mp3")
+                newpath = newpath.replacingOccurrences(of: " ", with: "%20")
+                print(newpath)
+                self.fileURLs[indexPath.item] = URL(string: newpath)!;
+                tableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.fade)
+                
+                do {
+                  
+                    //Rename the file
+                    let destinationPath = URL(string: newpath)!;
+                    try FileManager.default.moveItem(at: originPath, to: destinationPath)
+                } catch {
+                    print(error)
+                }
+            }))
+            
+            // 4. Present the alert.
+            self.present(alert, animated: true, completion: nil)
+        }
+        editAction.backgroundColor = .blue
+        
+        let deleteAction = UITableViewRowAction(style: .normal, title: "Delete") { (rowAction, indexPath) in
+            //TODO: Delete the row at indexPath here
+            self.fileURLs.remove(at: indexPath.item) // NO SECTIONS SUPPOR!
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        deleteAction.backgroundColor = .red
+        
+        return [editAction,deleteAction]
+    }
 /*
      //Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -78,16 +130,7 @@ class MediaTableViewController: UITableViewController {
     */
 
     
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            fileURLs.remove(at: indexPath.item) // NO SECTIONS SUPPOR!
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
+
     
 
     
