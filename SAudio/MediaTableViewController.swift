@@ -76,19 +76,22 @@ class MediaTableViewController: UITableViewController {
             //TODO: edit the row at indexPath here
             //1. Create the alert controller.
             let alert = UIAlertController(title: "Some Title", message: "Enter a text", preferredStyle: .alert)
-            
+            let originPath = self.fileURLs[indexPath.item] // used for renameing the file later
+            let name = self.fileURLs[indexPath.item].absoluteString
+            let lastpartname = NSString(string: name).lastPathComponent
             //2. Add the text field. You can configure it however you need.
             alert.addTextField { (textField) in
-                textField.text = "Some default text"
+                var displayTextfieldText = self.fileURLs[indexPath.item].lastPathComponent
+                displayTextfieldText.removeLast(4)
+                textField.text = displayTextfieldText
             }
             
             // 3. Grab the value from the text field, and print it when the user clicks OK.
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
                 let textField = alert!.textFields![0] // Force unwrapping because we know it exists.
 //                print("Text field: \(String(describing: textField.text))")
-                let originPath = self.fileURLs[indexPath.item] // used for renameing the file later
-                let name = self.fileURLs[indexPath.item].absoluteString
-                let lastpartname = NSString(string: name).lastPathComponent
+       
+                
                 
                 var newpath = name.replacingOccurrences(of: lastpartname, with: "")
                 newpath.append(textField.text! + ".mp3")
@@ -114,8 +117,11 @@ class MediaTableViewController: UITableViewController {
         
         let deleteAction = UITableViewRowAction(style: .normal, title: "Delete") { (rowAction, indexPath) in
             //TODO: Delete the row at indexPath here
-            self.fileURLs.remove(at: indexPath.item) // NO SECTIONS SUPPOR!
-            tableView.deleteRows(at: [indexPath], with: .fade)
+//            self.fileURLs.remove(at: indexPath.item) // NO SECTIONS SUPPOR!
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+            let alert = UIAlertController(title: "Delete", message: "Please delete media in Itunes!", preferredStyle: .alert)
+             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in }))
+            self.present(alert, animated:true, completion: nil)
         }
         deleteAction.backgroundColor = .red
         
