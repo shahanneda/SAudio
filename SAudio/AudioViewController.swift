@@ -37,23 +37,6 @@ class AudioViewController: UIViewController {
             self.view.addSubview(playerViewController.view)
             
 
-//            playerViewController.view.frame = self.view.frame
-//            TestView.addConstraint(
-//                NSLayoutConstraint(item: TestView,
-//                                   attribute: .centerX,
-//                                   relatedBy: .equal,
-//                                   toItem: TestView,
-//                                   attribute: .centerX,
-//                                   multiplier: 1, constant: 0)
-//            )
-//        view.bringSubviewToFront(TestView)
-//
-//        TestView.center = CGPoint(x: view.frame.width / 2, y: view.frame.height / 2)
-//        TestView.setNeedsLayout()
-//        TestView.setNeedsDisplay()
-//        TestView.sizeToFit();
-//        TestView.setNeedsLayout()
-//        TestView.setNeedsDisplay()
         self.TestView.center = CGPoint(x: self.playerViewController.view.bounds.midX,
                                         y: self.playerViewController.view.bounds.midY);
 //                playerViewController.player!.play()
@@ -69,27 +52,13 @@ class AudioViewController: UIViewController {
             print(error)
         }
         
-//        Slider.maximumValue = Float(CMTimeGetSeconds((audioPlayer.currentItem?.asset.duration)!));
-//        Slider.value = 0;
-//        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.UpdateSlider), userInfo: nil, repeats: true)
-        // Do any additional setup after loading the view.
-        
-    
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    //should be called when the slider is dragged
-    @IBAction func SliderSlide(_ sender: UISlider) {
-//        audioPlayer.seek(to: CMTime() = ;
-    }
-    
-    @objc func UpdateSlider(_ timer: Timer){
-//        Slider.setValue(Float(audioPlayer.currentTime), animated: false)
-    }
+
     @IBAction func PauseButtonClicked(_ sender: UIButton) {
         audioPlayer.pause()
     }
