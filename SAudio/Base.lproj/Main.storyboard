@@ -43,32 +43,33 @@
             </objects>
             <point key="canvasLocation" x="750" y="-320"/>
         </scene>
-        <!--Test Modal View Controller-->
+        <!--Audio View Controller-->
         <scene sceneID="T2U-5X-ak7">
             <objects>
-                <viewController id="Gtb-Sa-77t" customClass="TestModalViewController" customModule="SAudio" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Gtb-Sa-77t" customClass="AudioViewController" customModule="SAudio" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2Ao-Dn-Fxh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUU-Qx-AIR">
-                                <rect key="frame" x="159.5" y="321.5" width="56" height="44"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                <state key="normal" title="Back">
-                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="BackClicked:" destination="Gtb-Sa-77t" eventType="touchUpInside" id="DRI-6T-mvG"/>
-                                </connections>
-                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XQC-L4-FgE" userLabel="TestView">
+                                <rect key="frame" x="69" y="299" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vmz-3Q-tr5">
+                                        <rect key="frame" x="101.5" y="49" width="37" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="TEST"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="VUU-Qx-AIR" firstAttribute="centerY" secondItem="lD3-B1-eDV" secondAttribute="centerY" id="PJv-ug-U4x"/>
-                            <constraint firstItem="VUU-Qx-AIR" firstAttribute="centerX" secondItem="lD3-B1-eDV" secondAttribute="centerX" id="UIM-by-3EH"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="lD3-B1-eDV"/>
                     </view>
+                    <connections>
+                        <outlet property="TestView" destination="XQC-L4-FgE" id="E1B-Vd-Qmq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8h6-Ek-cMF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -123,49 +124,14 @@
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
-                        <segue destination="H3z-Xy-jmp" kind="relationship" relationship="viewControllers" id="lCD-iM-ftG"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
-        <!--Audio-->
-        <scene sceneID="FsN-7C-ouc">
-            <objects>
-                <viewController id="H3z-Xy-jmp" userLabel="Audio" customClass="AudioViewController" customModule="SAudio" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="KEs-Cu-B9g">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GQr-25-5z1" userLabel="TestView">
-                                <rect key="frame" x="67.5" y="255" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zYg-yV-cqN">
-                                        <rect key="frame" x="101.5" y="49" width="37" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="TEST"/>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="l2x-6N-GbY"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Audio" image="circled_play" id="c3P-uf-wGF"/>
-                    <connections>
-                        <outlet property="TestView" destination="GQr-25-5z1" id="vfc-h6-rPv"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="u3r-bG-cdC" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1797.5999999999999" y="290.10494752623691"/>
-        </scene>
     </scenes>
     <resources>
-        <image name="circled_play" width="30" height="30"/>
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>

@@ -13,6 +13,8 @@ import AVKit
 class AudioViewController: UIViewController {
     var audioPlayer = AVPlayer()
     let playerViewController = AVPlayerViewController()
+    var originalPosition: CGPoint?
+    var currentPositionTouched: CGPoint?
     
     @IBOutlet weak var TestView: UIView!
 
@@ -20,28 +22,32 @@ class AudioViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+        self.view.addGestureRecognizer(gestureRecognizer)
+        
         let sound = Bundle.main.path(forResource: "music", ofType: "mp3")
         print("View did load just ran")
+   
+            audioPlayer =  AVPlayer(url: URL(fileURLWithPath: sound!))
+            playerViewController.player = audioPlayer
+            playerViewController.contentOverlayView?.addSubview(TestView)
 
-        audioPlayer =  AVPlayer(url: URL(fileURLWithPath: sound!))
-        playerViewController.player = audioPlayer
-        playerViewController.contentOverlayView?.addSubview(TestView)
+            self.addChild(playerViewController)
+            self.view.addSubview(playerViewController.view)
+            
 
-        self.addChild(playerViewController)
-        self.view.addSubview(playerViewController.view)
-        
-
-        playerViewController.view.frame = self.view.frame
-        TestView.addConstraint(
-            NSLayoutConstraint(item: TestView,
-                               attribute: .centerX,
-                               relatedBy: .equal,
-                               toItem: TestView,
-                               attribute: .centerX,
-                               multiplier: 1, constant: 0)
-        )
+            playerViewController.view.frame = self.view.frame
+            TestView.addConstraint(
+                NSLayoutConstraint(item: TestView,
+                                   attribute: .centerX,
+                                   relatedBy: .equal,
+                                   toItem: TestView,
+                                   attribute: .centerX,
+                                   multiplier: 1, constant: 0)
+            )
 //                playerViewController.player!.play()
-        
+            
 
         
         do {
@@ -90,7 +96,39 @@ class AudioViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    @objc func handlePan(_ panGesture: UIPanGestureRecognizer){
+        let translation = panGesture.translation(in: view)
+        
+        if panGesture.state == .began {
+            originalPosition = view.center
+            currentPositionTouched = panGesture.location(in: view)
+        } else if panGesture.state == .changed {
+            view.frame.origin = CGPoint(
+                x: 0,
+                y: translation.y
+            )
+        } else if panGesture.state == .ended {
+            let velocity = panGesture.velocity(in: view)
+            
+            if velocity.y >= 1500 {
+                UIView.animate(withDuration: 0.2
+                    , animations: {
+                        self.view.frame.origin = CGPoint(
+                            x: self.view.frame.origin.x,
+                            y: self.view.frame.size.height
+                        )
+                }, completion: { (isCompleted) in
+                    if isCompleted {
+                        self.dismiss(animated: false, completion: nil)
+                    }
+                })
+            } else {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.view.center = self.originalPosition!
+                })
+            }
+        }
+    }
 }
 
 // Helper function inserted by Swift 4.2 migrator.
