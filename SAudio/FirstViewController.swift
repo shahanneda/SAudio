@@ -12,22 +12,7 @@ class FirstViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let fileManager = FileManager.default
-        
-        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        print(documentsURL)
-        do {
-            let fileURLs = try fileManager.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
-            
-            
-            for url in fileURLs{
-//               / let fileName = url.lastPathComponent
-                print(url);
-            }
-            
-        } catch {
-            print("Error while enumerating files \(documentsURL.path): \(error.localizedDescription)")
-        }
+      
         // Do any additional setup after loading the view, typically from a nib.
     }
 

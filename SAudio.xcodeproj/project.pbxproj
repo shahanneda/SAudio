@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B7938B52199378700CBCB99 /* MediaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7938B42199378700CBCB99 /* MediaTableViewController.swift */; };
+		6B7938B72199384A00CBCB99 /* MediaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7938B62199384A00CBCB99 /* MediaTableViewCell.swift */; };
 		6BC951AC2198D6DB00026223 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC951AB2198D6DB00026223 /* AppDelegate.swift */; };
 		6BC951AE2198D6DB00026223 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC951AD2198D6DB00026223 /* FirstViewController.swift */; };
 		6BC951B02198D6DB00026223 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC951AF2198D6DB00026223 /* SecondViewController.swift */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B7938B42199378700CBCB99 /* MediaTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTableViewController.swift; sourceTree = "<group>"; };
+		6B7938B62199384A00CBCB99 /* MediaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTableViewCell.swift; sourceTree = "<group>"; };
 		6BC951A82198D6DB00026223 /* SAudio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SAudio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BC951AB2198D6DB00026223 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6BC951AD2198D6DB00026223 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -47,7 +51,6 @@
 		6B7938B32199316F00CBCB99 /* Documents */ = {
 			isa = PBXGroup;
 			children = (
-				6BC951C32198DD5D00026223 /* music.mp3 */,
 			);
 			path = Documents;
 			sourceTree = "<group>";
@@ -73,6 +76,8 @@
 		6BC951AA2198D6DB00026223 /* SAudio */ = {
 			isa = PBXGroup;
 			children = (
+				6BC951C32198DD5D00026223 /* music.mp3 */,
+				6B7938B42199378700CBCB99 /* MediaTableViewController.swift */,
 				6BC951C92198F3C800026223 /* TestModalViewController.swift */,
 				6BC951C82198E23900026223 /* SAudio.entitlements */,
 				6BC951AB2198D6DB00026223 /* AppDelegate.swift */,
@@ -80,6 +85,7 @@
 				6BC951AF2198D6DB00026223 /* SecondViewController.swift */,
 				6BC951BF2198D81C00026223 /* AudioViewController.swift */,
 				6BC951B12198D6DB00026223 /* Main.storyboard */,
+				6B7938B62199384A00CBCB99 /* MediaTableViewCell.swift */,
 				6BC951B42198D6DB00026223 /* Assets.xcassets */,
 				6BC951B62198D6DB00026223 /* LaunchScreen.storyboard */,
 				6BC951B92198D6DB00026223 /* Info.plist */,
@@ -179,10 +185,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B7938B52199378700CBCB99 /* MediaTableViewController.swift in Sources */,
 				6BC951B02198D6DB00026223 /* SecondViewController.swift in Sources */,
 				6BC951C02198D81C00026223 /* AudioViewController.swift in Sources */,
 				6BC951AC2198D6DB00026223 /* AppDelegate.swift in Sources */,
 				6BC951AE2198D6DB00026223 /* FirstViewController.swift in Sources */,
+				6B7938B72199384A00CBCB99 /* MediaTableViewCell.swift in Sources */,
 				6BC951CA2198F3C800026223 /* TestModalViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

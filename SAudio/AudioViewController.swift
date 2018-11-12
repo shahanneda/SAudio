@@ -18,17 +18,21 @@ class AudioViewController: UIViewController {
     
     @IBOutlet weak var TestView: UIView!
 
-    public var NameOfMedia : String?;
+    public var NameOfMedia : String?
+    public var MediaURL : URL?
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
         let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+        
         self.view.addGestureRecognizer(gestureRecognizer)
-        if(NameOfMedia != nil){
-            let sound = Bundle.main.path(forResource: "music", ofType: "mp3")
+        if(MediaURL != nil){
+//            let sound = Bundle.main.path(forResource: "music", ofType: "mp3")
+            let sound = MediaURL!
             print("View did load just ran")
-            audioPlayer =  AVPlayer(url: URL(fileURLWithPath: sound!))
+            audioPlayer =  AVPlayer(url: sound)
             playerViewController.player = audioPlayer
             playerViewController.contentOverlayView?.addSubview(TestView)
             self.addChild(playerViewController)
