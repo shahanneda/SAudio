@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import AVKit
+import MediaPlayer
 
 class AudioViewController: UIViewController {
     var audioPlayer = AVPlayer()
@@ -18,9 +19,10 @@ class AudioViewController: UIViewController {
     
     @IBOutlet weak var TestView: UIView!
 
-    public var NameOfMedia : String?
+    var NameOfMedia : String?
     public var MediaURL : URL?
     
+    @IBOutlet weak var NameLabel: UILabel!
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -30,7 +32,7 @@ class AudioViewController: UIViewController {
         self.view.addGestureRecognizer(gestureRecognizer)
         if(MediaURL != nil){
 //            let sound = Bundle.main.path(forResource: "music", ofType: "mp3")
-            
+             NameOfMedia = MediaURL?.lastPathComponent
             let sound = MediaURL!
             var isVideo = false
             let extention = sound.pathExtension
@@ -42,6 +44,7 @@ class AudioViewController: UIViewController {
             playerViewController.player = audioPlayer
             self.view.addSubview(playerViewController.view)
             
+
             if(!isVideo){
                 playerViewController.contentOverlayView?.addSubview(TestView)
                 self.addChild(playerViewController)
@@ -51,22 +54,45 @@ class AudioViewController: UIViewController {
                 self.TestView.frame.size.width = self.playerViewController.view.bounds.width
                 self.TestView.center = CGPoint(x: self.playerViewController.view.bounds.midX,
                                                y: self.playerViewController.view.bounds.midY);
+                
+                self.NameLabel.center = CGPoint(x: self.playerViewController.view.bounds.midX,
+                                               y: self.playerViewController.view.bounds.midY);
                
-            }
-            playerViewController.player!.play()
-        
+        }
+           
+            
+           
+                setupAVAudioSession()
+            
+             playerViewController.player!.play()
             //To play in background :
-            do {
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode(rawValue: convertFromAVAudioSessionMode(AVAudioSession.Mode.default)), options: [.mixWithOthers, .allowAirPlay])
-                print("Playback OK")
-                try AVAudioSession.sharedInstance().setActive(true)
-                print("Session is Active")
-            } catch {
-                print(error)
-            }
+//            do {
+//                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode(rawValue: convertFromAVAudioSessionMode(AVAudioSession.Mode.default)), options: [.mixWithOthers, .allowAirPlay])
+//                print("Playback OK")
+//
+//                try AVAudioSession.sharedInstance().setActive(true)
+//                UIApplication.shared.beginReceivingRemoteControlEvents()
+//                setupCommandCenter()
+//                print("Session is Active")
+//            } catch {
+//                print(error)
+//            }
+            
+            NameLabel!.text = NameOfMedia
         }
     }
-
+    private func setupAVAudioSession() {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+            debugPrint("AVAudioSession is Active and Category Playback is set")
+            UIApplication.shared.beginReceivingRemoteControlEvents()
+            setupCommandCenter()
+        } catch {
+            debugPrint("Error: \(error)")
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -121,9 +147,30 @@ class AudioViewController: UIViewController {
             }
         }
     }
+    
+
+    
+
+    private func setupCommandCenter() {
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [MPMediaItemPropertyTitle: "Your App Name"]
+        
+        let commandCenter = MPRemoteCommandCenter.shared()
+        commandCenter.playCommand.isEnabled = true
+        commandCenter.pauseCommand.isEnabled = true
+        commandCenter.playCommand.addTarget { [weak self] (event) -> MPRemoteCommandHandlerStatus in
+            self?.audioPlayer.play()
+            return .success
+        }
+        commandCenter.pauseCommand.addTarget { [weak self] (event) -> MPRemoteCommandHandlerStatus in
+            self?.audioPlayer.pause()
+            return .success
+        }
+    }
+
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromAVAudioSessionMode(_ input: AVAudioSession.Mode) -> String {
 	return input.rawValue
 }
+
