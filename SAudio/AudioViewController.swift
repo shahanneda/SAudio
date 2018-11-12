@@ -37,8 +37,11 @@ class AudioViewController: UIViewController {
             self.view.addSubview(playerViewController.view)
             
 
+
+        self.TestView.frame.size.height = self.playerViewController.view.bounds.height
+        self.TestView.frame.size.width = self.playerViewController.view.bounds.width
         self.TestView.center = CGPoint(x: self.playerViewController.view.bounds.midX,
-                                        y: self.playerViewController.view.bounds.midY);
+                                       y: self.playerViewController.view.bounds.midY);
 //                playerViewController.player!.play()
             
 
