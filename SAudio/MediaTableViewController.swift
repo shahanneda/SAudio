@@ -33,8 +33,10 @@ class MediaTableViewController: UITableViewController {
                 print("Error while enumerating files \(documentsURL.path): \(error.localizedDescription)")
             }
         }
-
-        
+//        fileURLs!.sorted {$0.absoluteString.localizedStandardCompare($1) == .absoluteString.orderedAscending}
+//        let sortedfileURLs = .sorted { $0.absoluteString < $1.absoluteString }
+        let sortedfileURLs = fileURLs!.sorted {$0.absoluteString.localizedStandardCompare($1.absoluteString) == .orderedAscending}
+        fileURLs = sortedfileURLs;
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

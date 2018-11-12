@@ -30,18 +30,29 @@ class AudioViewController: UIViewController {
         self.view.addGestureRecognizer(gestureRecognizer)
         if(MediaURL != nil){
 //            let sound = Bundle.main.path(forResource: "music", ofType: "mp3")
+            
             let sound = MediaURL!
-            print("View did load just ran")
+            var isVideo = false
+            let extention = sound.pathExtension
+            if(extention == "mp4" || extention == "MP4"){
+                isVideo = true
+            }
+            print(extention)
             audioPlayer =  AVPlayer(url: sound)
             playerViewController.player = audioPlayer
-            playerViewController.contentOverlayView?.addSubview(TestView)
-            self.addChild(playerViewController)
             self.view.addSubview(playerViewController.view)
-            //To Center
-            self.TestView.frame.size.height = self.playerViewController.view.bounds.height
-            self.TestView.frame.size.width = self.playerViewController.view.bounds.width
-            self.TestView.center = CGPoint(x: self.playerViewController.view.bounds.midX,
-                                           y: self.playerViewController.view.bounds.midY);
+            
+            if(!isVideo){
+                playerViewController.contentOverlayView?.addSubview(TestView)
+                self.addChild(playerViewController)
+                
+                //To Center
+                self.TestView.frame.size.height = self.playerViewController.view.bounds.height
+                self.TestView.frame.size.width = self.playerViewController.view.bounds.width
+                self.TestView.center = CGPoint(x: self.playerViewController.view.bounds.midX,
+                                               y: self.playerViewController.view.bounds.midY);
+               
+            }
             playerViewController.player!.play()
         
             //To play in background :
