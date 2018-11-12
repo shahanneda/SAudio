@@ -20,6 +20,11 @@ class FirstViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    @IBAction func GoToModal(_ sender: UIButton) {
+        performSegue(withIdentifier: "TestModal", sender: self)
+            
+    }
 }
+    
+
 
