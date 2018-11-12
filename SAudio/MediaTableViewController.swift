@@ -50,11 +50,21 @@ class MediaTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let newViewController = storyBoard.instantiateViewController(withIdentifier: "AudioViewController") as! AudioViewController
-        newViewController.MediaURL = fileURLs[indexPath.row]
-        newViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext // To show how / remove black backgorudn shit
-        self.present(newViewController, animated: true, completion : nil)
+        
+        if(!directoryExistsAtPath(fileURLs![indexPath.row].absoluteString)){//checks if directory
+            print("DIRECTORY EXIXTS AT PATH :" + fileURLs![indexPath.row].absoluteString)
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let newViewController = storyBoard.instantiateViewController(withIdentifier: "AudioViewController") as! AudioViewController
+            newViewController.MediaURL = fileURLs[indexPath.row]
+            newViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext // To show how / remove black backgorudn shit
+            self.present(newViewController, animated: true, completion : nil)
+        }else{
+            let storyboard = UIStoryboard(name: "MyStoryboardName", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("someViewController")
+        }
+
+        
+        
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "MediaTableViewCell"
@@ -163,5 +173,12 @@ class MediaTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+     func directoryExistsAtPath(_ path: String) ->Bool {
+       var newp = path
+        if(newp.removeLast() == "/"){
+            return true
+        }else{
+            return false
+        }
+    }
 }
