@@ -42,14 +42,18 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TEST NAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Jh-in-Mt6">
-                                            <rect key="frame" x="16" y="11" width="343" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TEST NAMETEST NAMETEST NAMETEST NAMETEST NAMETEST NAMETEST NAMETEST NAME" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Jh-in-Mt6">
+                                            <rect key="frame" x="20" y="2" width="343" height="61"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="9Jh-in-Mt6" firstAttribute="leading" secondItem="HqZ-xh-sac" secondAttribute="leading" constant="20" id="MF7-vl-T9l"/>
+                                        <constraint firstAttribute="trailing" secondItem="9Jh-in-Mt6" secondAttribute="trailing" constant="12" id="g7i-aa-udl"/>
+                                        <constraint firstItem="9Jh-in-Mt6" firstAttribute="top" secondItem="HqZ-xh-sac" secondAttribute="top" constant="2" id="muw-Hf-f8a"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="NameLabel" destination="9Jh-in-Mt6" id="8GM-LW-9xE"/>
@@ -66,7 +70,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YiS-4g-lWc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2537" y="107"/>
+            <point key="canvasLocation" x="2536.8000000000002" y="106.59670164917542"/>
         </scene>
         <!--Item-->
         <scene sceneID="JXF-Zw-L8q">

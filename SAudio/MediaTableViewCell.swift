@@ -13,6 +13,7 @@ class MediaTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        NameLabel.sizeToFit()
         // Initialization code
     }
 
