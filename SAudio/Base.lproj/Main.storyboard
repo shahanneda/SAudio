@@ -17,36 +17,19 @@
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ohy-In-ypn">
-                                <rect key="frame" x="119.5" y="297" width="136" height="44"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                <state key="normal" title="Go to modal"/>
-                                <connections>
-                                    <action selector="GoToModal:" destination="9pv-A4-QxB" eventType="touchUpInside" id="YEH-vH-DNW"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="ohy-In-ypn" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" id="7op-pl-Pm1"/>
-                            <constraint firstItem="ohy-In-ypn" firstAttribute="centerY" secondItem="PQr-Ze-W5v" secondAttribute="centerY" id="Ap6-MV-1oc"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
-                    <connections>
-                        <segue destination="Gtb-Sa-77t" kind="presentation" identifier="TestModal" modalPresentationStyle="overCurrentContext" id="Pvh-li-bQQ"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="750" y="-320"/>
         </scene>
-        <!--Audio View Controller-->
+        <!--AudioViewController-->
         <scene sceneID="T2U-5X-ak7">
             <objects>
-                <viewController id="Gtb-Sa-77t" customClass="AudioViewController" customModule="SAudio" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AudioViewController" id="Gtb-Sa-77t" userLabel="AudioViewController" customClass="AudioViewController" customModule="SAudio" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2Ao-Dn-Fxh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

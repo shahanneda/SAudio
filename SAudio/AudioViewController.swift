@@ -18,43 +18,38 @@ class AudioViewController: UIViewController {
     
     @IBOutlet weak var TestView: UIView!
 
-    
+    public var NameOfMedia : String?;
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
         let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
         self.view.addGestureRecognizer(gestureRecognizer)
-        
-        let sound = Bundle.main.path(forResource: "music", ofType: "mp3")
-        print("View did load just ran")
-   
+        if(NameOfMedia != nil){
+            let sound = Bundle.main.path(forResource: "music", ofType: "mp3")
+            print("View did load just ran")
             audioPlayer =  AVPlayer(url: URL(fileURLWithPath: sound!))
             playerViewController.player = audioPlayer
             playerViewController.contentOverlayView?.addSubview(TestView)
-
             self.addChild(playerViewController)
             self.view.addSubview(playerViewController.view)
-            
-
-
-        self.TestView.frame.size.height = self.playerViewController.view.bounds.height
-        self.TestView.frame.size.width = self.playerViewController.view.bounds.width
-        self.TestView.center = CGPoint(x: self.playerViewController.view.bounds.midX,
-                                       y: self.playerViewController.view.bounds.midY);
-//                playerViewController.player!.play()
-            
-
+            //To Center
+            self.TestView.frame.size.height = self.playerViewController.view.bounds.height
+            self.TestView.frame.size.width = self.playerViewController.view.bounds.width
+            self.TestView.center = CGPoint(x: self.playerViewController.view.bounds.midX,
+                                           y: self.playerViewController.view.bounds.midY);
+    //                playerViewController.player!.play()
         
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode(rawValue: convertFromAVAudioSessionMode(AVAudioSession.Mode.default)), options: [.mixWithOthers, .allowAirPlay])
-            print("Playback OK")
-            try AVAudioSession.sharedInstance().setActive(true)
-            print("Session is Active")
-        } catch {
-            print(error)
+            //To play in background :
+            do {
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode(rawValue: convertFromAVAudioSessionMode(AVAudioSession.Mode.default)), options: [.mixWithOthers, .allowAirPlay])
+                print("Playback OK")
+                try AVAudioSession.sharedInstance().setActive(true)
+                print("Session is Active")
+            } catch {
+                print(error)
+            }
         }
-        
     }
 
     override func didReceiveMemoryWarning() {

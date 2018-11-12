@@ -44,9 +44,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6B7938B32199316F00CBCB99 /* Documents */ = {
+			isa = PBXGroup;
+			children = (
+				6BC951C32198DD5D00026223 /* music.mp3 */,
+			);
+			path = Documents;
+			sourceTree = "<group>";
+		};
 		6BC9519F2198D6DB00026223 = {
 			isa = PBXGroup;
 			children = (
+				6B7938B32199316F00CBCB99 /* Documents */,
 				6BC951AA2198D6DB00026223 /* SAudio */,
 				6BC951A92198D6DB00026223 /* Products */,
 				6BC951C52198E23900026223 /* Frameworks */,
@@ -66,7 +75,6 @@
 			children = (
 				6BC951C92198F3C800026223 /* TestModalViewController.swift */,
 				6BC951C82198E23900026223 /* SAudio.entitlements */,
-				6BC951C32198DD5D00026223 /* music.mp3 */,
 				6BC951AB2198D6DB00026223 /* AppDelegate.swift */,
 				6BC951AD2198D6DB00026223 /* FirstViewController.swift */,
 				6BC951AF2198D6DB00026223 /* SecondViewController.swift */,
