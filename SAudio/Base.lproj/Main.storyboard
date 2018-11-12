@@ -138,51 +138,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="CQc-Mb-eVb">
-                                <rect key="frame" x="-18" y="264" width="411" height="110.5"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GQr-25-5z1" userLabel="TestView">
+                                <rect key="frame" x="67.5" y="255" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tv2-7q-NC6">
-                                        <rect key="frame" x="0.0" y="0.0" width="411" height="30"/>
-                                        <state key="normal" title="Play"/>
-                                        <connections>
-                                            <action selector="PlayButtonClicked:" destination="H3z-Xy-jmp" eventType="touchUpInside" id="eI2-xx-3f6"/>
-                                        </connections>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zYg-yV-cqN">
+                                        <rect key="frame" x="101.5" y="49" width="37" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="TEST"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cj6-Y6-o8g">
-                                        <rect key="frame" x="0.0" y="30" width="411" height="30"/>
-                                        <state key="normal" title="Pause"/>
-                                        <connections>
-                                            <action selector="PauseButtonClicked:" destination="H3z-Xy-jmp" eventType="touchUpInside" id="6Bo-Py-5A6"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hUo-Yb-lf9">
-                                        <rect key="frame" x="0.0" y="60" width="411" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="fu4-rO-try">
-                                        <rect key="frame" x="-2" y="80.5" width="415" height="31"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="Osz-dO-Yz7"/>
-                                        </constraints>
-                                        <connections>
-                                            <action selector="SliderSlide:" destination="H3z-Xy-jmp" eventType="touchDragInside" id="to2-Ca-aL1"/>
-                                        </connections>
-                                    </slider>
                                 </subviews>
-                            </stackView>
+                                <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="CQc-Mb-eVb" firstAttribute="centerX" secondItem="l2x-6N-GbY" secondAttribute="centerX" id="BlF-n8-Cxa"/>
-                            <constraint firstItem="CQc-Mb-eVb" firstAttribute="centerY" secondItem="l2x-6N-GbY" secondAttribute="centerY" id="idS-sg-upS"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="l2x-6N-GbY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Audio" image="circled_play" id="c3P-uf-wGF"/>
                     <connections>
-                        <outlet property="Slider" destination="fu4-rO-try" id="9w7-GK-qk2"/>
+                        <outlet property="TestView" destination="GQr-25-5z1" id="vfc-h6-rPv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u3r-bG-cdC" sceneMemberID="firstResponder"/>
