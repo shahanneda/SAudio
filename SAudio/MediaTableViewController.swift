@@ -106,6 +106,9 @@ class MediaTableViewController: UITableViewController {
         var name = url.lastPathComponent
         if(!directoryExistsAtPath(url.absoluteString)){
             name.removeLast(4)
+            
+        }else{
+            name = "📂  " + name
         }
         if(fileChecks![indexPath.row]){
             cell.SetCheckmark()
@@ -148,7 +151,7 @@ class MediaTableViewController: UITableViewController {
                 
                 
                 var newpath = name.replacingOccurrences(of: lastpartname, with: "")
-//                newpath.append(textField.text! + ".mp3")
+                newpath.append(textField.text!)
                 newpath = newpath.replacingOccurrences(of: " ", with: "%20")
                 print(newpath)
                 self.fileURLs![indexPath.item] = URL(string: newpath)!;
