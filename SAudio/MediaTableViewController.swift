@@ -21,6 +21,7 @@ class MediaTableViewController: UITableViewController {
     }
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         let fileManager = FileManager.default
         fileChecks = [Bool]()
@@ -62,7 +63,8 @@ class MediaTableViewController: UITableViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         let foulderPath = fileURLs![0].deletingLastPathComponent()
-        self.title = foulderPath.lastPathComponent
+       
+        self.navigationItem.title = foulderPath.lastPathComponent
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
 //        self.navigationItem.rightBarButtonItem = self.button
     }
@@ -88,6 +90,8 @@ class MediaTableViewController: UITableViewController {
             newViewController.MediaURL = fileURLs![indexPath.row]
             newViewController.hidesBottomBarWhenPushed = true
             newViewController.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+            
+            
             
            // Check when we play a file
             self.fileChecks![indexPath.row] = true
@@ -146,7 +150,10 @@ class MediaTableViewController: UITableViewController {
 //        let defaults = UserDefaults.standard
 //        defaults.set(fileChecks, forKey: (dirURL?.absoluteString)!)
         cell.NameLabel.text = name
-
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.darkGray
+        cell.selectedBackgroundView = backgroundView
+        
         return cell
     }
  
@@ -163,7 +170,7 @@ class MediaTableViewController: UITableViewController {
             let lastpartname = NSString(string: name).lastPathComponent
             //2. Add the text field. You can configure it however you need.
             alert.addTextField { (textField) in
-                var displayTextfieldText = self.fileURLs![indexPath.item].lastPathComponent
+                let displayTextfieldText = self.fileURLs![indexPath.item].lastPathComponent
                 if(displayTextfieldText.last != "/"){
 //                     displayTextfieldText.removeLast(4)
                 }
