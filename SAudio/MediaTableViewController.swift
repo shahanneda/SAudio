@@ -88,6 +88,13 @@ class MediaTableViewController: UITableViewController {
             newViewController.MediaURL = fileURLs![indexPath.row]
             newViewController.hidesBottomBarWhenPushed = true
             newViewController.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+            
+           // Check when we play a file
+            self.fileChecks![indexPath.row] = true
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+            let defaults = UserDefaults.standard
+            defaults.set(self.fileChecks, forKey: (self.dirURL?.absoluteString)!)
+            
 //            newViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext // To show how / remove black backgorudn shit
             self.present(newViewController, animated: true, completion : nil)
         }else{
@@ -100,9 +107,13 @@ class MediaTableViewController: UITableViewController {
                 let mediaVCTable = vc as? MediaTableViewController
                 mediaVCTable?.fileURLs = newfileURLs
                 self.navigationController?.pushViewController(vc, animated: true)
+                
+                
             }catch{
                 print(error)
             }
+            
+            
             
         }
 
@@ -132,8 +143,8 @@ class MediaTableViewController: UITableViewController {
             cell.setNeedsLayout()
         }
         
-        let defaults = UserDefaults.standard
-        defaults.set(fileChecks, forKey: (dirURL?.absoluteString)!)
+//        let defaults = UserDefaults.standard
+//        defaults.set(fileChecks, forKey: (dirURL?.absoluteString)!)
         cell.NameLabel.text = name
 
         return cell
@@ -172,7 +183,7 @@ class MediaTableViewController: UITableViewController {
                 newpath = newpath.replacingOccurrences(of: " ", with: "%20")
                 print(newpath)
                 self.fileURLs![indexPath.item] = URL(string: newpath)!;
-                tableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.fade)
+                tableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
                 
                 do {
                   
@@ -212,7 +223,12 @@ class MediaTableViewController: UITableViewController {
             else if(self.fileChecks![indexPath.row] == false){
                 self.fileChecks![indexPath.row] = true
             }
-            tableView.reloadRows(at: [indexPath], with: .none)
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+            
+            let defaults = UserDefaults.standard
+            defaults.set(self.fileChecks, forKey: (self.dirURL?.absoluteString)!)
+           
+
             success(true)
             
 //            let cell = self.tableView(tableView, cellForRowAt: indexPath) as? MediaTableViewCell
@@ -220,7 +236,7 @@ class MediaTableViewController: UITableViewController {
             
             
         })
-        tableView.reloadRows(at: [indexPath], with: .none)
+        tableView.reloadRows(at: [indexPath], with: .automatic)
         closeAction.image = UIImage(named: "check")
         closeAction.backgroundColor = .purple
         
