@@ -13,12 +13,19 @@ class MediaTableViewController: UITableViewController {
     var fileURLs : [URL]?
     var fileChecks : [Bool]?
     let defaults = UserDefaults.standard
+    var dirURL : URL?
+    
+    
+    func isKeyPresentInUserDefaults(key: String) -> Bool {
+        return UserDefaults.standard.object(forKey: key) != nil
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let fileManager = FileManager.default
         fileChecks = [Bool]()
         let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        print(documentsURL)
+        
         if(fileURLs == nil){
             do {
                 
@@ -34,14 +41,20 @@ class MediaTableViewController: UITableViewController {
                 print("Error while enumerating files \(documentsURL.path): \(error.localizedDescription)")
             }
         }
-        for url in fileURLs!{
-            //               / let fileName = url.lastPathComponent
-            print(url);
-            fileChecks?.append(false)
+         dirURL = fileURLs![0].deletingLastPathComponent()
+        if(isKeyPresentInUserDefaults(key: (dirURL?.absoluteString)!)){
+            fileChecks = defaults.array(forKey: (dirURL?.absoluteString)!) as? [Bool] ?? [Bool]()
+        }else{
+            for url in fileURLs!{
+                //               / let fileName = url.lastPathComponent
+                print(url);
+                fileChecks?.append(false)
+            }
         }
-        
-        
 
+        
+       
+       
 //        fileURLs!.sorted {$0.absoluteString.localizedStandardCompare($1) == .absoluteString.orderedAscending}
 //        let sortedfileURLs = .sorted { $0.absoluteString < $1.absoluteString }
         let sortedfileURLs = fileURLs!.sorted {$0.absoluteString.localizedStandardCompare($1.absoluteString) == .orderedAscending}
@@ -105,18 +118,22 @@ class MediaTableViewController: UITableViewController {
         let url = fileURLs![indexPath.row]
         var name = url.lastPathComponent
         if(!directoryExistsAtPath(url.absoluteString)){
-            name.removeLast(4)
+            name.removeLast(4) // special conditions for normal files
             
         }else{
-            name = "📂  " + name
+            name = "📂  " + name // special conditions for directories
         }
-        if(fileChecks![indexPath.row]){
-            cell.SetCheckmark()
+        if(fileChecks![indexPath.row] == true){
+           cell.accessoryType = .checkmark
         }
-        if(!fileChecks![indexPath.row]){
-            cell.RemoveCheckmark()
+        if(fileChecks![indexPath.row] == false){
+            cell.accessoryType = .none
+            cell.setNeedsDisplay()
+            cell.setNeedsLayout()
         }
         
+        let defaults = UserDefaults.standard
+        defaults.set(fileChecks, forKey: (dirURL?.absoluteString)!)
         cell.NameLabel.text = name
 
         return cell
@@ -189,15 +206,17 @@ class MediaTableViewController: UITableViewController {
     {
         let closeAction = UIContextualAction(style: .normal, title:  "Close", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             print("OK, marked as Closed")
-            success(true)
-            
-//            let cell = self.tableView(tableView, cellForRowAt: indexPath) as? MediaTableViewCell
             if(self.fileChecks![indexPath.row] == true){
                 self.fileChecks![indexPath.row] = false
             }
-            if(self.fileChecks![indexPath.row] == false){
+            else if(self.fileChecks![indexPath.row] == false){
                 self.fileChecks![indexPath.row] = true
             }
+            tableView.reloadRows(at: [indexPath], with: .none)
+            success(true)
+            
+//            let cell = self.tableView(tableView, cellForRowAt: indexPath) as? MediaTableViewCell
+
             
             
         })
@@ -235,15 +254,17 @@ class MediaTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
+        let defaults = UserDefaults.standard
+        defaults.set(fileChecks, forKey: (dirURL?.absoluteString)!)
         // Pass the selected object to the new view controller.
     }
-    */
+ 
      func directoryExistsAtPath(_ path: String) ->Bool {
        var newp = path
         if(newp.removeLast() == "/"){
@@ -251,5 +272,12 @@ class MediaTableViewController: UITableViewController {
         }else{
             return false
         }
+    }
+    
+    
+}
+extension UserDefaults {
+    func contains(key: String) -> Bool {
+        return UserDefaults.standard.object(forKey: key) != nil
     }
 }
