@@ -55,9 +55,13 @@ class AudioViewController: UIViewController {
                 self.TestView.frame.size.width = self.playerViewController.view.bounds.width
                 self.TestView.center = CGPoint(x: self.playerViewController.view.bounds.midX,
                                                y: self.playerViewController.view.bounds.midY);
-                
-                self.NameLabel.center = CGPoint(x: self.playerViewController.view.bounds.midX,
-                                               y: self.playerViewController.view.bounds.midY);
+                var namewithnoext = NameOfMedia
+                namewithnoext?.removeLast(4)
+                NameLabel!.text = namewithnoext
+                NameLabel.sizeToFit()
+                self.NameLabel.center = CGPoint(x: self.TestView.bounds.midX,
+                                               y: self.TestView.bounds.midY);
+               
                
         }
            
@@ -79,7 +83,7 @@ class AudioViewController: UIViewController {
 //                print(error)
 //            }
             
-            NameLabel!.text = NameOfMedia
+            
         }
     }
     private func setupAVAudioSession() {

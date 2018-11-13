@@ -51,7 +51,7 @@ class MediaTableViewController: UITableViewController {
         let foulderPath = fileURLs![0].deletingLastPathComponent()
         self.title = foulderPath.lastPathComponent
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        self.navigationItem.rightBarButtonItem = self.editButtonItem
+//        self.navigationItem.rightBarButtonItem = self.button
     }
 
     // MARK: - Table view data source
@@ -120,7 +120,9 @@ class MediaTableViewController: UITableViewController {
     }
  
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
+        if(self.fileURLs![indexPath.item].absoluteString.last == "/"){// No editing for directories! yet...
+            return [];
+        }
         let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (rowAction, indexPath) in
             //TODO: edit the row at indexPath here
             //1. Create the alert controller.
@@ -131,7 +133,10 @@ class MediaTableViewController: UITableViewController {
             //2. Add the text field. You can configure it however you need.
             alert.addTextField { (textField) in
                 var displayTextfieldText = self.fileURLs![indexPath.item].lastPathComponent
-                displayTextfieldText.removeLast(4)
+                if(displayTextfieldText.last != "/"){
+//                     displayTextfieldText.removeLast(4)
+                }
+               
                 textField.text = displayTextfieldText
             }
             
@@ -143,7 +148,7 @@ class MediaTableViewController: UITableViewController {
                 
                 
                 var newpath = name.replacingOccurrences(of: lastpartname, with: "")
-                newpath.append(textField.text! + ".mp3")
+//                newpath.append(textField.text! + ".mp3")
                 newpath = newpath.replacingOccurrences(of: " ", with: "%20")
                 print(newpath)
                 self.fileURLs![indexPath.item] = URL(string: newpath)!;
