@@ -38,6 +38,7 @@ class AudioViewController: UIViewController {
             let extention = sound.pathExtension
             if(extention == "mp4" || extention == "MP4"){
                 isVideo = true
+                
             }
             print(extention)
             audioPlayer =  AVPlayer(url: sound)
@@ -123,7 +124,7 @@ class AudioViewController: UIViewController {
         } else if panGesture.state == .changed {
             view.frame.origin = CGPoint(
                 x: 0,
-                y: translation.y
+                y: max(0,translation.y)
             )
         } else if panGesture.state == .ended {
             let velocity = panGesture.velocity(in: view)
@@ -137,6 +138,7 @@ class AudioViewController: UIViewController {
                         )
                 }, completion: { (isCompleted) in
                     if isCompleted {
+                        self.audioPlayer.replaceCurrentItem(with: nil)//TODO: maybe have some player controls in teh bottem of the screen
                         self.dismiss(animated: false, completion: nil)
                     }
                 })
@@ -152,7 +154,13 @@ class AudioViewController: UIViewController {
     
 
     private func setupCommandCenter() {
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = [MPMediaItemPropertyTitle: "Your App Name"]
+        
+        var nowPlayingInfo = [String : Any]()
+        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = audioPlayer.currentTime().seconds
+        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = audioPlayer.currentItem!.asset.duration.seconds
+        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = audioPlayer.rate
+        nowPlayingInfo[MPMediaItemPropertyTitle] = "My Movie"
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
         
         let commandCenter = MPRemoteCommandCenter.shared()
         commandCenter.playCommand.isEnabled = true
@@ -165,8 +173,50 @@ class AudioViewController: UIViewController {
             self?.audioPlayer.pause()
             return .success
         }
+        let skipBackwardCommand = commandCenter.skipBackwardCommand
+        skipBackwardCommand.isEnabled = true
+        skipBackwardCommand.addTarget(handler: skipBackward)
+        skipBackwardCommand.preferredIntervals = [42]
+        
+        let skipForwardCommand = commandCenter.skipForwardCommand
+        skipForwardCommand.isEnabled = true
+        skipForwardCommand.addTarget(handler: skipForward)
+        skipForwardCommand.preferredIntervals = [42]
+        
+       
+        
+//        if let image = UIImage(named: "lockscreen") {
+//            nowPlayingInfo[MPMediaItemPropertyArtwork] =
+//                MPMediaItemArtwork(boundsSize: image.size) { size in
+//                    return image
+//            }
+//        }
     }
-
+    func skipBackward(_ event: MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
+        guard let command = event.command as? MPSkipIntervalCommand else {
+            return .noSuchContent
+        }
+        
+        let interval = command.preferredIntervals[0]
+        
+        print(interval) //Output: 42
+        audioPlayer.seek(to: audioPlayer.currentTime() - (interval as! CMTime))
+        return .success
+    }
+    
+    func skipForward(_ event: MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
+        guard let command = event.command as? MPSkipIntervalCommand else {
+            return .noSuchContent
+        }
+        
+        let interval = command.preferredIntervals[0]
+        
+        print(interval) //Output: 42
+        audioPlayer.seek(to: audioPlayer.currentTime() + (interval as! CMTime))
+        
+        return .success
+    }
+    
 }
 
 // Helper function inserted by Swift 4.2 migrator.

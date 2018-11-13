@@ -10,13 +10,24 @@ import UIKit
 
 class MediaTableViewCell: UITableViewCell {
     @IBOutlet weak var NameLabel: UILabel!
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
         NameLabel.sizeToFit()
         // Initialization code
     }
-
+    public func SetCheckmark(){
+        self.accessoryType = .checkmark
+        self.setNeedsDisplay()
+        self.setNeedsLayout()
+        
+    }
+    public func RemoveCheckmark(){
+        self.accessoryType = .none
+        self.setNeedsDisplay()
+        self.setNeedsLayout()
+    }
     override func setSelected(_ selected: Bool, animated: Bool) {
        // super.setSelected(selected, animated: animated)
 

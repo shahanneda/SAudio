@@ -11,11 +11,12 @@ import UIKit
 class MediaTableViewController: UITableViewController {
     
     var fileURLs : [URL]?
-    
+    var fileChecks : [Bool]?
+    let defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
         let fileManager = FileManager.default
-        
+        fileChecks = [Bool]()
         let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
         print(documentsURL)
         if(fileURLs == nil){
@@ -24,15 +25,23 @@ class MediaTableViewController: UITableViewController {
                 fileURLs = try fileManager.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
                 
                 
-                for url in fileURLs!{
-                    //               / let fileName = url.lastPathComponent
-                    print(url);
-                }
+
+//                for (index, element) in fileURLs!.enumerated() {
+//                    fileChecks![index]  = false
+//                }
                 
             } catch {
                 print("Error while enumerating files \(documentsURL.path): \(error.localizedDescription)")
             }
         }
+        for url in fileURLs!{
+            //               / let fileName = url.lastPathComponent
+            print(url);
+            fileChecks?.append(false)
+        }
+        
+        
+
 //        fileURLs!.sorted {$0.absoluteString.localizedStandardCompare($1) == .absoluteString.orderedAscending}
 //        let sortedfileURLs = .sorted { $0.absoluteString < $1.absoluteString }
         let sortedfileURLs = fileURLs!.sorted {$0.absoluteString.localizedStandardCompare($1.absoluteString) == .orderedAscending}
@@ -64,7 +73,9 @@ class MediaTableViewController: UITableViewController {
             let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let newViewController = storyBoard.instantiateViewController(withIdentifier: "AudioViewController") as! AudioViewController
             newViewController.MediaURL = fileURLs![indexPath.row]
-            newViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext // To show how / remove black backgorudn shit
+            newViewController.hidesBottomBarWhenPushed = true
+            newViewController.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+//            newViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext // To show how / remove black backgorudn shit
             self.present(newViewController, animated: true, completion : nil)
         }else{
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -95,6 +106,12 @@ class MediaTableViewController: UITableViewController {
         var name = url.lastPathComponent
         if(!directoryExistsAtPath(url.absoluteString)){
             name.removeLast(4)
+        }
+        if(fileChecks![indexPath.row]){
+            cell.SetCheckmark()
+        }
+        if(!fileChecks![indexPath.row]){
+            cell.RemoveCheckmark()
         }
         
         cell.NameLabel.text = name
@@ -158,6 +175,30 @@ class MediaTableViewController: UITableViewController {
         deleteAction.backgroundColor = .red
         
         return [editAction,deleteAction]
+    }
+    override func tableView(_ tableView: UITableView,
+                   leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
+    {
+        let closeAction = UIContextualAction(style: .normal, title:  "Close", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            print("OK, marked as Closed")
+            success(true)
+            
+//            let cell = self.tableView(tableView, cellForRowAt: indexPath) as? MediaTableViewCell
+            if(self.fileChecks![indexPath.row] == true){
+                self.fileChecks![indexPath.row] = false
+            }
+            if(self.fileChecks![indexPath.row] == false){
+                self.fileChecks![indexPath.row] = true
+            }
+            
+            
+        })
+        tableView.reloadRows(at: [indexPath], with: .none)
+        closeAction.image = UIImage(named: "check")
+        closeAction.backgroundColor = .purple
+        
+        return UISwipeActionsConfiguration(actions: [closeAction])
+        
     }
 /*
      //Override to support conditional editing of the table view.

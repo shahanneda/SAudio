@@ -92,7 +92,7 @@
         <!--AudioViewController-->
         <scene sceneID="T2U-5X-ak7">
             <objects>
-                <viewController storyboardIdentifier="AudioViewController" id="Gtb-Sa-77t" userLabel="AudioViewController" customClass="AudioViewController" customModule="SAudio" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AudioViewController" modalPresentationStyle="overFullScreen" hidesBottomBarWhenPushed="YES" id="Gtb-Sa-77t" userLabel="AudioViewController" customClass="AudioViewController" customModule="SAudio" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2Ao-Dn-Fxh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -101,13 +101,18 @@
                                 <rect key="frame" x="65" y="88" width="244" height="456"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ddaddaddaddaddaddaddaddaddaddaddaddaddaddaddaddaddadda" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYT-Qp-Lfl">
-                                        <rect key="frame" x="17" y="169" width="211" height="119"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vTR-KQ-r9K">
+                                        <rect key="frame" x="101" y="218" width="524" height="20.5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ddaddaddaddaddaddaddaddaddaddaddaddaddaddaddaddaddadda" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="84L-uR-LY8">
+                                                <rect key="frame" x="0.0" y="0.0" width="524" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -116,8 +121,8 @@
                         <viewLayoutGuide key="safeArea" id="lD3-B1-eDV"/>
                     </view>
                     <connections>
-                        <outlet property="NameLabel" destination="xYT-Qp-Lfl" id="BnW-6w-dvR"/>
-                        <outlet property="TestView" destination="XQC-L4-FgE" id="41n-1j-k3u"/>
+                        <outlet property="NameLabel" destination="84L-uR-LY8" id="qsq-K2-VWP"/>
+                        <outlet property="TestView" destination="XQC-L4-FgE" id="E1B-Vd-Qmq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8h6-Ek-cMF" userLabel="First Responder" sceneMemberID="firstResponder"/>
