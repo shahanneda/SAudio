@@ -50,7 +50,7 @@ class MediaTableViewController: UITableViewController {
         }else{
             dirURL = documentsURL
         }
-        do{
+//        do{
             if(isKeyPresentInUserDefaults(key: (dirURL?.absoluteString)!)){
                 fileChecks = defaults.array(forKey: (dirURL?.absoluteString)!) as? [Bool] ?? [Bool]()
             }else{
@@ -60,9 +60,9 @@ class MediaTableViewController: UITableViewController {
                     fileChecks?.append(false)
                 }
             }
-        }catch{
-            
-        }
+//        }catch{
+//
+//        }
         
         
 
@@ -75,7 +75,11 @@ class MediaTableViewController: UITableViewController {
         fileURLs = sortedfileURLs;
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-        let foulderPath = fileURLs![0].deletingLastPathComponent()
+        var foulderPath = documentsURL
+        if( 0 < (fileURLs?.count)!){
+             foulderPath = fileURLs![0].deletingLastPathComponent()
+        }
+       
        
         self.navigationItem.title = foulderPath.lastPathComponent
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
