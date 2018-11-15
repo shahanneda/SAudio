@@ -37,21 +37,34 @@ class MediaTableViewController: UITableViewController {
 //                for (index, element) in fileURLs!.enumerated() {
 //                    fileChecks![index]  = false
 //                }
+
+                
+                
                 
             } catch {
                 print("Error while enumerating files \(documentsURL.path): \(error.localizedDescription)")
             }
         }
-         dirURL = fileURLs![0].deletingLastPathComponent()
-        if(isKeyPresentInUserDefaults(key: (dirURL?.absoluteString)!)){
-            fileChecks = defaults.array(forKey: (dirURL?.absoluteString)!) as? [Bool] ?? [Bool]()
+        if(fileURLs!.indices.contains(0)){
+            dirURL = fileURLs![0].deletingLastPathComponent()
         }else{
-            for url in fileURLs!{
-                //               / let fileName = url.lastPathComponent
-                print(url);
-                fileChecks?.append(false)
-            }
+            dirURL = documentsURL
         }
+        do{
+            if(isKeyPresentInUserDefaults(key: (dirURL?.absoluteString)!)){
+                fileChecks = defaults.array(forKey: (dirURL?.absoluteString)!) as? [Bool] ?? [Bool]()
+            }else{
+                for url in fileURLs!{
+                    //               / let fileName = url.lastPathComponent
+                    print(url);
+                    fileChecks?.append(false)
+                }
+            }
+        }catch{
+            
+        }
+        
+        
 
         
        
