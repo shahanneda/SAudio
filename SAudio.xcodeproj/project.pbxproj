@@ -336,7 +336,7 @@
 				DEVELOPMENT_TEAM = T7J5U4EJJJ;
 				INFOPLIST_FILE = SAudio/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ca.shahan.SAudio;
+				PRODUCT_BUNDLE_IDENTIFIER = ca.shahan.saudio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -351,7 +351,7 @@
 				DEVELOPMENT_TEAM = T7J5U4EJJJ;
 				INFOPLIST_FILE = SAudio/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ca.shahan.SAudio;
+				PRODUCT_BUNDLE_IDENTIFIER = ca.shahan.saudio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
